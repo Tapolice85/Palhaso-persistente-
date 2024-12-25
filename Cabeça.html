@@ -1,0 +1,233 @@
+-- Credits Tapolice85© 2024/25/12
+-- If you are going to use it for public use, use the creator's credits. This script has a license and this license belongs to Tapolice85. Any theft is a crime.
+
+-- -----------------------------
+
+<html>
+<head>
+    <title>Você NÃO Vai ESCAPAR!</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #FF0000;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        #palhaco {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #FF0000;
+            font-size: 50px;
+            font-weight: bold;
+            z-index: 10000;
+            animation: pulsate 1s infinite;
+        }
+
+        .alerta {
+            color: #FF6347;
+            font-size: 30px;
+            font-weight: bold;
+            animation: blink 1s infinite;
+        }
+
+        #fundoPalhaco {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            top: 0;
+            background: url('https://www.example.com/path/to/your/palhaco-image.png') no-repeat center center fixed;
+            background-size: cover;
+            z-index: -1000;
+        }
+
+        .mensagemFundo {
+            color: #FF6347;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            z-index: -1;
+            animation: fundoMensagem 1s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes pulsate {
+            0% { transform: scale(1.2); }
+            50% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+
+        @keyframes fundoMensagem {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+    </style>
+    <script>
+        let activ = window.setInterval("Farbe()", 10);
+        let farbe = 1;
+
+        // Função para alternar as cores de fundo
+        function Farbe() {
+            if (farbe == 1) {
+                document.bgColor = "000000";
+                farbe = 2;
+            } else {
+                document.bgColor = "FF0000";
+                farbe = 1;
+            }
+
+            alert("HAHAHAHAHAHAHAHAHAHAHAAH! Você não vai sair de mim!");
+        }
+
+        // Função para bloquear a abertura de novas guias
+        function bloquearAberturaDeGuias() {
+            window.open = function() {
+                alert("Você não pode abrir novas guias! Não há escapatória!");
+            };
+        }
+
+        // Função para impedir que o usuário saia ou feche a guia
+        window.addEventListener('beforeunload', function(event) {
+            event.preventDefault();
+            event.returnValue = "HAHAHAHA! Você não pode escapar do palhaço!";
+        });
+
+        // Previne o fechamento da guia ou a tentativa de atualizar
+        window.onbeforeunload = function() {
+            alert("Não adianta, o palhaço nunca vai embora!");
+            return "Você não pode sair agora!";
+        };
+
+        // Função para bloquear o uso do botão direito
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            alert("Você não pode acessar o menu de contexto!");
+        });
+
+        // Função para bloquear as ferramentas de desenvolvedor
+        window.addEventListener('keydown', function(event) {
+            if (event.key == "F12" || (event.ctrlKey && event.shiftKey && event.key == "I")) {
+                event.preventDefault();
+                alert("HAHAHA! Você não vai mexer no código do palhaço!");
+            }
+            if (event.key == "F5" || (event.ctrlKey && event.key == "R")) {
+                event.preventDefault();
+                alert("Você não pode atualizar a página!");
+            }
+            if (event.key == "Escape") {
+                event.preventDefault();
+                alert("HAHAHA! Não adianta tentar escapar assim!");
+            }
+        });
+
+        // Função para exibir o palhaço e interagir com o usuário
+        function exibirPalhaco() {
+            const divPalhaco = document.createElement("div");
+            divPalhaco.id = "palhaco";
+            divPalhaco.innerHTML = "<span class='alerta'>HAHAHAHA, você não consegue escapar do palhaço!</span>";
+            document.body.appendChild(divPalhaco);
+
+            setInterval(function() {
+                divPalhaco.innerHTML = "<span class='alerta'>Você acha que vai sair assim? O palhaço sempre encontra você!</span>";
+            }, 3000);
+        }
+
+        // Função para exibir mensagens do palhaço no fundo
+        function exibirMensagemFundo() {
+            const divMensagemFundo = document.createElement("div");
+            divMensagemFundo.classList.add("mensagemFundo");
+            divMensagemFundo.innerHTML = "HAHAHAHA! Não tem como escapar! O palhaço está sempre aqui!";
+            document.body.appendChild(divMensagemFundo);
+
+            setInterval(function() {
+                divMensagemFundo.innerHTML = "Você não pode fugir, o palhaço sempre vai te encontrar!";
+            }, 5000);
+        }
+
+        // Função para monitorar tentativas de minimizar ou mudar de guia
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                alert("HAHAHA! Onde você pensa que vai?");
+                document.title = "Você não pode me esconder...";
+            }
+        });
+
+        // Bloqueio da navegação do navegador
+        function bloquearGuia() {
+            if (window.history && window.history.pushState) {
+                history.pushState(null, document.title, location.href);
+                window.onpopstate = function() {
+                    history.pushState(null, document.title, location.href);
+                };
+            }
+        }
+
+        // Técnica para enganar a navegação de "voltar"
+        function enganarVoltar() {
+            setInterval(function() {
+                history.pushState(null, document.title, location.href);
+            }, 100);
+        }
+
+        // Previne o uso de teclas que alteram a navegação
+        window.addEventListener('keydown', function(e) {
+            if (e.key === "F5" || (e.ctrlKey && e.key === "R")) {
+                e.preventDefault();
+                alert("Não pense que vai escapar tão fácil!");
+            }
+        });
+
+        // Função para manter a página ativa e impedir que o usuário escape
+        function bloquearEscapatoria() {
+            document.body.innerHTML = "<h1 style='color: red;'>HAHAHA, Você Não Vai Sair!</h1>";
+            setInterval(function() {
+                alert("HAHAHAHA! Não adianta tentar sair. O palhaço está com você!");
+            }, 5000);
+        }
+
+        // Função para redirecionar para uma URL fixa (sem que o usuário tenha controle)
+        function redirecionar() {
+            setInterval(function() {
+                window.location.href = location.href; // Redireciona para a mesma página, sem permitir alteração
+            }, 1000);
+        }
+
+        // Tenta bloquear o acesso a ferramentas do navegador
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "F12" || e.key === "I" || e.ctrlKey && e.shiftKey && e.key === "I") {
+                e.preventDefault();
+                alert("Você NÃO vai mexer nos recursos do navegador!");
+            }
+        });
+
+        // Aciona o código assim que a página for carregada
+        window.onload = function() {
+            bloquearAberturaDeGuias();  // Bloqueia a abertura de novas guias
+            bloquearGuia();  // Bloqueia a navegação para sair da página
+            enganarVoltar();  // Engana a tentativa de voltar
+            exibirPalhaco();  // Exibe o palhaço macabro interativo
+            exibirMensagemFundo();  // Exibe a mensagem no fundo
+            redirecionar();  // Redireciona continuamente
+            bloquearEscapatoria();  // Bloqueia qualquer tentativa de escape
+        };
+    </script>
+</head>
+<body>
+    <h1 style="color: white; font-size: 50px; text-align: center;">Você NÃO vai ESCAPAR!</h1>
+    <p style="color: red; font-size: 30px; text-align: center; font-weight: bold;">Tente escapar se conseguir... mas você não vai!</p>
+    <div id="fundoPalhaco"></div>
+</body>
+</html>
